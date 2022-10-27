@@ -7,4 +7,12 @@ RUN mkdir run/mysqld
 
 RUN mysql_install_db --user=root --datadir=/var/lib/mysql
 
+COPY init.sh .
+RUN chmod +x init.sh
+
+# remove this and add to docker compose instead
+ENV MARIADB_ROOT_PASSWORD="quentin"
+
+RUN ./init.sh
+
 CMD ["mariadbd", "--user=root"]
