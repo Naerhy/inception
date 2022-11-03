@@ -10,4 +10,8 @@ RUN apk update \
 RUN chmod +x wp-cli.phar \
 	&& mv wp-cli.phar /usr/local/bin/wp
 
+RUN mkdir wordpress && wp core download --path=wordpress/
+
+COPY www.conf etc/php7/php-fpm.d/
+
 CMD ["php-fpm7", "-F", "-R"]

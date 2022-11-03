@@ -9,6 +9,10 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 	-out /etc/ssl1.1/certs/selfsigned.crt \
 	-subj="/C=FR/ST=IDF/L=Paris/O=42Paris/CN=localhost"
 
-COPY nginx.conf etc/nginx
+COPY nginx.conf etc/nginx/
+
+RUN mkdir /var/www/html/
+
+COPY index.html /var/www/html/
 
 CMD ["nginx", "-g", "daemon off;"]
