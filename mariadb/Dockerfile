@@ -11,7 +11,12 @@ COPY init.sh .
 RUN chmod +x init.sh
 
 # remove this and add to docker compose instead
-ENV MARIADB_ROOT_PASSWORD="quentin"
+ENV MARIADB_ROOT_PASSWORD="thisisapassword"
+ENV MARIADB_DATABASE="wordpress"
+ENV MARIADB_ADMIN="bossintheroom"
+ENV MARIADB_ADMIN_PASSWORD="fweygvewp"
+ENV MARIADB_USER="user"
+ENV MARIADB_USER_PASSWORD="nfwefewyg"
 
 RUN ./init.sh
 

@@ -5,6 +5,17 @@ mariadbd --user=root &
 
 sleep 5
 
+echo "Creating Wordpress database!"
+mysql --user=root << _EOF_
+	CREATE DATABASE $MARIADB_DATABASE;
+	CREATE USER '$MARIADB_ADMIN'@'localhost' IDENTIFIED BY '$MARIADB_ADMIN_PASSWORD';
+	GRANT ALL ON $MARIADB_DATABASE.* TO '$MARIADB_ADMIN'@'localhost';
+	CREATE USER '$MARIADB_USER'@'localhost' IDENTIFIED BY '$MARIADB_USER_PASSWORD';
+	GRANT SELECT ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'localhost';
+	FLUSH PRIVILEGES;
+_EOF_
+echo "Wordpress database created!"
+
 echo "Securing the MYSQL installation!"
 mysql --user=root << _EOF_
 	ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';
