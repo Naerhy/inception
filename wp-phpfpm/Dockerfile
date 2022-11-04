@@ -7,6 +7,9 @@ RUN apk update \
 	&& apk add curl \
 	&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
+RUN apk update \
+	&& apk add mysql-client
+
 RUN chmod +x wp-cli.phar \
 	&& mv wp-cli.phar /usr/local/bin/wp
 
@@ -14,4 +17,14 @@ RUN mkdir wordpress && wp core download --path=wordpress/
 
 COPY www.conf etc/php7/php-fpm.d/
 
-CMD ["php-fpm7", "-F", "-R"]
+WORKDIR /wordpress/
+
+# remove this and add to docker compose instead
+ENV MARIADB_DATABASE="wordpress"
+ENV MARIADB_ADMIN="bossintheroom"
+ENV MARIADB_ADMIN_PASSWORD="fweygvewp"
+
+COPY init.sh .
+RUN chmod +x init.sh
+
+CMD ["./init.sh"]

@@ -11,8 +11,4 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 COPY nginx.conf etc/nginx/
 
-RUN mkdir /var/www/html/
-
-COPY index.html /var/www/html/
-
 CMD ["nginx", "-g", "daemon off;"]

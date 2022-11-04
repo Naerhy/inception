@@ -20,4 +20,6 @@ ENV MARIADB_USER_PASSWORD="nfwefewyg"
 
 RUN ./init.sh
 
+COPY mariadb-server.cnf etc/my.cnf.d/
+
 CMD ["mariadbd", "--user=root"]
