@@ -1,7 +1,7 @@
 FROM alpine:3.15
 
 RUN apk update \
-	&& apk add php7-fpm php7-opcache php7-phar php7-json php7-curl php7-mysqli
+	&& apk add php7-fpm php7-opcache php7-phar php7-json php7-curl php7-mysqli php7-mbstring
 
 RUN apk update \
 	&& apk add curl \
@@ -23,6 +23,8 @@ WORKDIR /wordpress/
 ENV MARIADB_DATABASE="wordpress"
 ENV MARIADB_ADMIN="bossintheroom"
 ENV MARIADB_ADMIN_PASSWORD="fweygvewp"
+ENV WP_ADMIN="iamtheone"
+ENV WP_ADMIN_PASSWORD="ejwucivcoen"
 
 COPY init.sh .
 RUN chmod +x init.sh
