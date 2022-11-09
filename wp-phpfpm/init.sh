@@ -1,6 +1,9 @@
 #!/bin/sh
 
-sleep 3
+while ! mysql --user=$MARIADB_ADMIN --password=$MARIADB_ADMIN_PASSWORD -h mariadb --execute "SHOW DATABASES;"
+do
+	sleep 5
+done
 
 echo "Generating configuration file for Wordpress..."
 wp config create --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_ADMIN \

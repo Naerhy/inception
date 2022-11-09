@@ -7,11 +7,9 @@ RUN mkdir run/mysqld
 
 RUN mysql_install_db --user=root --datadir=/var/lib/mysql
 
+COPY mariadb-server.cnf etc/my.cnf.d/
+
 COPY init.sh .
 RUN chmod +x init.sh
 
-RUN ./init.sh
-
-COPY mariadb-server.cnf etc/my.cnf.d/
-
-CMD ["mariadbd", "--user=root"]
+CMD ["./init.sh"]

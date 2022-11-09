@@ -1,4 +1,5 @@
-version: "3.7"
+version: "3.9"
+
 services:
     nginx:
         build: nginx/
@@ -19,7 +20,7 @@ services:
         depends_on:
             - mariadb
         env_file:
-            - .wp.env
+            - .env
         networks:
             - frontend
             - backend
@@ -31,7 +32,7 @@ services:
         build: mariadb/
         container_name: mariadb
         env_file:
-            - .mariadb.env
+            - .env
         networks:
             - backend
         volumes:

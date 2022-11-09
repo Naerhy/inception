@@ -1,11 +1,11 @@
 #!/bin/sh
 
-echo "Starting temporary server!"
+echo "Starting temporary server..."
 mariadbd --user=root &
 
-sleep 5
+sleep 3
 
-echo "Creating Wordpress database!"
+echo "Creating Wordpress database..."
 mysql --user=root << _EOF_
 	CREATE DATABASE $MARIADB_DATABASE;
 	CREATE USER '$MARIADB_ADMIN'@'%' IDENTIFIED BY '$MARIADB_ADMIN_PASSWORD';
@@ -16,7 +16,7 @@ mysql --user=root << _EOF_
 _EOF_
 echo "Wordpress database created!"
 
-echo "Securing the MYSQL installation!"
+echo "Securing the MYSQL installation..."
 mysql --user=root << _EOF_
 	ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';
 	DELETE FROM mysql.user WHERE User='';
@@ -27,7 +27,10 @@ mysql --user=root << _EOF_
 _EOF_
 echo "MYSQL installation secured!"
 
-sleep 3
-
 echo "Stopping temporary server!"
 mysqladmin --user=root --password=$MARIADB_ROOT_PASSWORD shutdown
+
+sleep 3
+
+echo "Starting mariadb server..."
+mariadbd --user=root
