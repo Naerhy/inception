@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+    nginx:
+        build: nginx/
+        container_name: nginx
+        depends_on:
+            - wp-phpfpm
+        ports:
+            - "443:443"
+        networks:
+             - frontend
+        volumes:
+            - wp-files:/wordpress/
+        restart: always
+
+    wp-phpfpm:
+        build: wp-phpfpm/
+        container_name: wp-phpfpm
+        depends_on:
+            - mariadb
+        env_file:
+            - .wp.env
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - wp-files:/wordpress/
+        restart: always
+
+    mariadb:
+        build: mariadb/
+        container_name: mariadb
+        env_file:
+            - .mariadb.env
+        networks:
+            - backend
+        volumes:
+            - db-files:/var/lib/mysql/
+        restart: always
+
+networks:
+    frontend:
+        driver: bridge
+    backend:
+        driver: bridge
+
+volumes:
+    wp-files:
+    db-files:

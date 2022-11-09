@@ -19,13 +19,6 @@ COPY www.conf etc/php7/php-fpm.d/
 
 WORKDIR /wordpress/
 
-# remove this and add to docker compose instead
-ENV MARIADB_DATABASE="wordpress"
-ENV MARIADB_ADMIN="bossintheroom"
-ENV MARIADB_ADMIN_PASSWORD="fweygvewp"
-ENV WP_ADMIN="iamtheone"
-ENV WP_ADMIN_PASSWORD="ejwucivcoen"
-
 COPY init.sh .
 RUN chmod +x init.sh
 
