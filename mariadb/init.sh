@@ -33,4 +33,4 @@ mysqladmin --user=root --password=$MARIADB_ROOT_PASSWORD shutdown
 sleep 3
 
 echo "Starting mariadb server..."
-mariadbd --user=root
+exec mariadbd --user=root

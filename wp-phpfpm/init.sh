@@ -20,4 +20,4 @@ wp theme install twentytwentyone --activate
 echo "Wordpress theme installed!"
 
 echo "Starting PHP-FPM..."
-php-fpm7 -F -R
+exec php-fpm7 -F -R
