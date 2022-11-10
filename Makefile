@@ -1,21 +1,24 @@
 FILE_PATH = src/docker-compose.yaml
 
-BASE_CMD = docker compose -f ${FILE_PATH}
+PROJECT_NAME = inception
 
-build:
-	${BASE_CMD} build
+BASE_CMD = docker compose --file ${FILE_PATH} --project-name ${PROJECT_NAME}
 
 up:
-	${BASE_CMD} up
+	${BASE_CMD} up --build
 
 up-d:
-	${BASE_CMD} up -d
+	${BASE_CMD} up --build --detach
 
 down:
 	${BASE_CMD} down
 
 down-v:
-	${BASE_CMD} down -v
+	${BASE_CMD} down --volumes
+
+clean:
+	${BASE_CMD} down --volumes --remove-orphans --rmi all
+	docker system prune --force
 
 start:
 	${BASE_CMD} start
@@ -29,4 +32,4 @@ restart:
 status:
 	${BASE_CMD} ps
 
-.PHONY: build up up-d down down-d start stop restart status
+.PHONY: up up-d down down-v remove start stop restart status
