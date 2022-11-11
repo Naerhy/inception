@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while ! mysql --user=$MARIADB_LOGIN --password=$MARIADB_PASSWORD -h mariadb --execute "SHOW DATABASES;"
+while ! mysql --user=$MARIADB_LOGIN --password=$MARIADB_PASSWORD -h mariadb --execute "SHOW DATABASES;" > /dev/null
 do
 	sleep 5
 done
