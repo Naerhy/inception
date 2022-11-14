@@ -17,7 +17,7 @@ down-v:
 	${BASE_CMD} down --volumes
 
 clean:
-	${BASE_CMD} down --volumes --remove-orphans --rmi all
+	${BASE_CMD} down --volumes --rmi all
 	docker system prune --force
 
 start:
