@@ -1,17 +1,15 @@
-version: "3.9"
+version: "3"
 
 services:
-    nginx:
-        build: nginx/
-        container_name: nginx
-        depends_on:
-            - wordpress
-        ports:
-            - "443:443"
+    mariadb:
+        build: mariadb/
+        container_name: mariadb
+        env_file:
+            - .env
         networks:
-             - frontend
+            - backend
         volumes:
-            - wp-files:/wordpress/
+            - db-files:/var/lib/mysql/
         restart: always
 
     wordpress:
@@ -28,15 +26,17 @@ services:
             - wp-files:/wordpress/
         restart: always
 
-    mariadb:
-        build: mariadb/
-        container_name: mariadb
-        env_file:
-            - .env
+    nginx:
+        build: nginx/
+        container_name: nginx
+        depends_on:
+            - wordpress
+        ports:
+            - "443:443"
         networks:
-            - backend
+             - frontend
         volumes:
-            - db-files:/var/lib/mysql/
+            - wp-files:/wordpress/
         restart: always
 
 networks:

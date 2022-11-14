@@ -4,6 +4,9 @@ PROJECT_NAME = inception
 
 BASE_CMD = docker compose --file ${FILE_PATH} --project-name ${PROJECT_NAME}
 
+build:
+	${BASE_CMD} build
+
 up:
 	${BASE_CMD} up --build
 
@@ -13,11 +16,8 @@ up-d:
 down:
 	${BASE_CMD} down
 
-down-v:
-	${BASE_CMD} down --volumes
-
 clean:
-	${BASE_CMD} down --volumes --rmi all
+	${BASE_CMD} down --volumes --rmi all --remove-orphans
 	docker system prune --force
 
 start:
